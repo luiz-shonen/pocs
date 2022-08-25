@@ -8,6 +8,6 @@ import lombok.*;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class CategoriaResponse extends BaseResponse {
+public class OrgaoResponse extends BaseResponse {
     private String nome;
 }

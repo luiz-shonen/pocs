@@ -1,30 +1,25 @@
 package com.shonen.poc.services.impl;
 
 import com.shonen.poc.models.Contrato;
+import com.shonen.poc.resources.requests.ContratoRequest;
+import com.shonen.poc.resources.responses.ContratoResponse;
 import com.shonen.poc.services.ContratoService;
-import com.shonen.poc.services.EmpreendimentoService;
 import com.shonen.poc.services.repositories.ContratoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ContratoServiceImpl implements ContratoService {
-    private final ContratoRepository contratoRepository;
-    private final EmpreendimentoService empreendimentoService;
+public class ContratoServiceImpl extends BaseServiceImpl<Contrato, ContratoRequest, ContratoResponse> implements ContratoService {
+    private final ContratoRepository repository;
 
-    public ContratoServiceImpl(ContratoRepository contratoRepository, EmpreendimentoService empreendimentoService) {
-        this.contratoRepository = contratoRepository;
-        this.empreendimentoService = empreendimentoService;
-    }
-
-    @Override
-    public List<Contrato> getAll() {
-        return contratoRepository.findAll();
+    public ContratoServiceImpl(ContratoRepository repository) {
+        super(Contrato.class, ContratoRequest.class, ContratoResponse.class, repository);
+        this.repository = repository;
     }
 
     @Override
     public List<Contrato> getAllFetchEmpreendimentos() {
-        return contratoRepository.getContratosFetchEmpreendimentos();
+        return repository.getContratosFetchEmpreendimentos();
     }
 }

@@ -1,8 +1,12 @@
 package com.shonen.poc.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shonen.poc.models.Produto;
+import com.shonen.poc.resources.requests.ProdutoRequest;
 import com.shonen.poc.resources.responses.ProdutoResponse;
+import com.shonen.poc.resources.responses.Response;
 import com.shonen.poc.services.ProdutoService;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,26 +15,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("produtos")
-public class ProdutoRestController {
-    private final ProdutoService produtoService;
+public class ProdutoRestController extends BaseRestController<Produto, ProdutoRequest, ProdutoResponse> {
+    private final ProdutoService service;
     private final ObjectMapper objectMapper;
 
-    public ProdutoRestController(ProdutoService produtoService, ObjectMapper objectMapper) {
-        this.produtoService = produtoService;
+    public ProdutoRestController(ProdutoService service, ObjectMapper objectMapper) {
+        super(service);
+        this.service = service;
         this.objectMapper = objectMapper;
     }
 
-    @GetMapping
-    public List<ProdutoResponse> getAll() {
-        return produtoService.getAll()
-                .stream()
-                .map(produto -> objectMapper.convertValue(produto, ProdutoResponse.class))
-                .toList();
+    @Override
+    public Response findAllPageSort(Integer page, Integer size, String sort, Sort.Direction direction) {
+        return service.findAll();
     }
 
     @GetMapping("categorias")
     public List<ProdutoResponse> getAllCategorias() {
-        return produtoService.getAllFetchCategoria()
+        return service.getAllFetchCategoria()
                 .stream()
                 .map(produto -> objectMapper.convertValue(produto, ProdutoResponse.class))
                 .toList();

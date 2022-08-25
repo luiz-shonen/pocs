@@ -7,12 +7,11 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProdutoResponse extends BaseResponse {
+@ToString(callSuper = true)
+public class EmpresaResponse extends BaseResponse {
     private String nome;
 
-    private String observacao;
+    private Long setorId;
 
-    private Long categoriaId;
-
-    private CategoriaResponse categoria;
+    private SetorResponse setor;
 }

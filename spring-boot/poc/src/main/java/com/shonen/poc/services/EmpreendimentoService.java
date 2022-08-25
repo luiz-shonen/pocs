@@ -1,14 +1,11 @@
 package com.shonen.poc.services;
 
 import com.shonen.poc.models.Empreendimento;
-import lombok.NonNull;
+import com.shonen.poc.resources.requests.EmpreendimentoRequest;
+import com.shonen.poc.resources.responses.EmpreendimentoResponse;
 
 import java.util.List;
 
-public interface EmpreendimentoService {
-    List<Empreendimento> getAll();
-
+public interface EmpreendimentoService extends BaseService<Empreendimento, EmpreendimentoRequest, EmpreendimentoResponse> {
     List<Empreendimento> getAllFetchContratos();
-
-    Empreendimento buscarPorId(@NonNull Long id);
 }

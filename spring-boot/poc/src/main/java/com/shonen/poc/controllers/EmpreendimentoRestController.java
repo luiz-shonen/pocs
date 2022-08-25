@@ -1,6 +1,8 @@
 package com.shonen.poc.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shonen.poc.models.Empreendimento;
+import com.shonen.poc.resources.requests.EmpreendimentoRequest;
 import com.shonen.poc.resources.responses.EmpreendimentoResponse;
 import com.shonen.poc.services.EmpreendimentoService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,26 +13,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("empreendimentos")
-public class EmpreendimentoRestController {
-    private final EmpreendimentoService empreendimentoService;
+public class EmpreendimentoRestController extends BaseRestController<Empreendimento, EmpreendimentoRequest, EmpreendimentoResponse> {
+    private final EmpreendimentoService service;
     private final ObjectMapper objectMapper;
 
-    public EmpreendimentoRestController(EmpreendimentoService empreendimentoService, ObjectMapper objectMapper) {
-        this.empreendimentoService = empreendimentoService;
+    public EmpreendimentoRestController(EmpreendimentoService service, ObjectMapper objectMapper) {
+        super(service);
+        this.service = service;
         this.objectMapper = objectMapper;
-    }
-
-    @GetMapping
-    public List<EmpreendimentoResponse> getAll() {
-        return empreendimentoService.getAll()
-                .stream()
-                .map(empreendimento -> objectMapper.convertValue(empreendimento, EmpreendimentoResponse.class))
-                .toList();
     }
 
     @GetMapping("contratos")
     public List<EmpreendimentoResponse> getAllContratos() {
-        return empreendimentoService.getAllFetchContratos()
+        return service.getAllFetchContratos()
                 .stream()
                 .map(empreendimento -> objectMapper.convertValue(empreendimento, EmpreendimentoResponse.class))
                 .toList();

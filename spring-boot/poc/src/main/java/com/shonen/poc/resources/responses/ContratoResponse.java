@@ -1,20 +1,21 @@
 package com.shonen.poc.resources.responses;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-public class ContratoResponse {
-    private Long id;
-
+@ToString(callSuper = true)
+public class ContratoResponse extends BaseResponse {
     private String nome;
 
     private Long empreendimentoId;
 
     private EmpreendimentoResponse empreendimento;
+
+    private Long empresaId;
+
+    private EmpresaResponse empresa;
 }

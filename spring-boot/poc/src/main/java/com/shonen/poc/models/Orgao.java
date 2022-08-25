@@ -13,15 +13,15 @@ import java.util.Objects;
 @Setter
 @ToString(callSuper = true)
 @Entity
-public class Categoria extends Base {
+public class Orgao extends Base {
     private String nome;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Categoria categoria = (Categoria) o;
-        return getId() != null && Objects.equals(getId(), categoria.getId());
+        Orgao orgao = (Orgao) o;
+        return getId() != null && Objects.equals(getId(), orgao.getId());
     }
 
     @Override
