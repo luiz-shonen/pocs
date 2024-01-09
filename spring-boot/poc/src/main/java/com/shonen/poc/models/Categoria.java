@@ -3,6 +3,7 @@ package com.shonen.poc.models;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ import java.util.Objects;
 @ToString(callSuper = true)
 @Entity
 public class Categoria extends Base {
+    @Column(unique = true)
     private String nome;
 
     @Override
